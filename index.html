@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lowkey Paint</title>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <h1>
+        Lowkey Paint Page
+        </h1>
+
+        <div class="controls">
+            <button onclick="chooseSize()">Clear Canvas</button>
+        </div>
+
+        <div class="container">
+
+        </div>
+
+        <script>
+
+            let initialSize = 16;
+            const container = document.querySelector('.container');
+            buildGrid(initialSize);
+
+            // create grid of divs with L x W of input size
+            function buildGrid(size) {
+                for (let j = 0; j < size**2; j++) {
+                    const divBox = document.createElement('div');
+                    divBox.classList.add('boxGray');
+                    divBox.setAttribute("style", "height: " + 700/size + "px");
+                    divBox.addEventListener('mouseenter', function (e) {
+                        e.target.classList.add('boxBlack');
+                    });
+
+                    container.appendChild(divBox);
+
+                }
+            }
+
+            // remove all child nodes from container
+            function clearCanvas() {
+
+                while (container.hasChildNodes()) {
+                    container.removeChild(container.firstChild);
+                }
+
+            }
+
+            // choose the size of grid to fit in provided space and checks for improper input
+            function chooseSize() {
+                let gridSize = prompt("How many boxes per row?:", 16)
+                if (gridSize == null || gridSize == "" || isNaN(gridSize)) {
+                    alert("improper input");
+                } else {
+                    clearCanvas();
+                    buildGrid(gridSize);
+                }
+            }
+
+        </script>
+    </body>
+</html>
